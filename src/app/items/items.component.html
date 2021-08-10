@@ -1,0 +1,25 @@
+<br>
+<div>
+  <form [formGroup]="listFormGroup">
+
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label>
+          Please Select Food:
+        </label>
+
+        <div class="custom-control custom-checkbox scrollbar scrollbar-rare-wind border" style="height: 500px;">
+          <mat-selection-list #list formControlName="selectItems">
+            <mat-list-option *ngFor="let item of itemList" [selected]="item.selected" (click)="listControlChanged(list)" [value]="item.id" [matTooltip]="'Pirce: $' + item.price + '.00'">
+              {{item.name}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row" *ngIf="btnDisplay">
+      <button type="button" class="btn badge-primary" (click)="btnOrderNow()">Order Now</button>
+    </div>
+  </form>
+</div>

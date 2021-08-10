@@ -1,0 +1,32 @@
+<br>
+<br>
+<div  class="col-sm-6">
+  <div>
+    <div class="btn-group mr-2" *ngIf="btnPlaceOrder_Displayed">
+      <button class="btn btn-info" (click)="btnPlaceOrder()">Place Order</button>
+    </div>
+
+    <div class="btn-group mr-2" *ngIf="btnCheckout_Displayed">
+      <button class="btn btn-secondary" (click)="btnCheckOut()">Checkout</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="dialog_Displayed">
+  <h3>Order:</h3>
+  <div class="border">
+    <mat-list>
+      <mat-list-item *ngFor="let item of itemListAfterSelected">{{item.name}}  &nbsp;&nbsp;&nbsp;${{item.price}}.00</mat-list-item>
+    </mat-list>
+  </div>
+
+  <br>
+
+  <h3>Total Price: ${{total}}.00</h3>
+
+  <br>
+
+  <div class="btn-group mr-2">
+    <button class="btn btn-info" (click)="btnPlayNow()">Play Now</button>
+  </div>
+</div>
