@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 
   itemListAfterSelected: any = [];
   total: number = 0;
+  tableid: number = 0;
 
   constructor(private router: Router,
               private dataService: DataService) {
@@ -35,8 +36,9 @@ export class HomeComponent implements OnInit {
     this.btnCheckout_Displayed = false;
     this.dialog_Displayed = true;
 
-    this.itemListAfterSelected = this.dataService.updateItemList();
-    this.total = this.dataService.total;
+    this.itemListAfterSelected = this.dataService.selectItems;
+    this.total = this.dataService.totalPrice;
+    this.tableid = this.dataService.tableid;
 
   }
 

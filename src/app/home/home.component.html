@@ -13,19 +13,19 @@
 </div>
 
 <div *ngIf="dialog_Displayed">
-  <h3>Order:</h3>
+  <span class="font-weight-bold">Order:</span>
+  <br>
+  <span class="font-weight-bold">Table id: </span><span>{{tableid}}</span>
   <div class="border">
     <mat-list>
-      <mat-list-item *ngFor="let item of itemListAfterSelected">{{item.name}}  &nbsp;&nbsp;&nbsp;${{item.price}}.00</mat-list-item>
+      <mat-list-item *ngFor="let item of itemListAfterSelected">
+        {{item.foodname}}  &nbsp;&nbsp;&nbsp;${{item.foodprice}}.00 &nbsp;&nbsp;&nbsp; Count: {{item.count}}
+      </mat-list-item>
     </mat-list>
   </div>
-
   <br>
-
-  <h3>Total Price: ${{total}}.00</h3>
-
+  <span class="font-weight-bold">Total Price: ${{total}}.00</span>
   <br>
-
   <div class="btn-group mr-2">
     <button class="btn btn-info" (click)="btnPlayNow()">Play Now</button>
   </div>

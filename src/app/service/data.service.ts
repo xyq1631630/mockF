@@ -14,7 +14,8 @@ export class DataService {
   btnPlaceOrder_Displayed = true;
   btnCheckout_Displayed = false;
 
-  total: number = 0;
+  totalPrice: number = 0;
+  tableid: number;
 
   // itemList = [
   //   {id: 0, name: "Chicken", price: 5, selected: false},
@@ -31,21 +32,22 @@ export class DataService {
 
   itemList: any = [];
 
-
   selectItems: any = [];
-  itemListAfterSelected: any = [];
 
   constructor(private http: HttpClient) {
 
     this.getItemsFromDatabase().subscribe((data) => {
+      console.log(data);
       data.forEach((element: any) => {
         this.itemList.push({
-          id: element.id,
-          name: element.name,
-          price: element.price,
-          selected: false
+          foodid: element.foodid,
+          foodname: element.foodname,
+          foodprice: element.foodprice,
+          count: 0,
+          select: false
         });
       })
+
     })
   }
 
@@ -59,26 +61,6 @@ export class DataService {
 
   getSituationOfbtnPlaceOrder() {
     return this.btnPlaceOrder_Displayed;
-  }
-
-  updateItemList() {
-    this.selectItems.forEach((x: any) => {
-      this.itemListAfterSelected.push({
-        id: this.itemList[x].id,
-        name: this.itemList[x].name,
-        price: this.itemList[x].price
-      });
-    })
-    return this.itemListAfterSelected;
-  }
-
-  getTotalAmount() {
-    // console.log(this.selectItems);
-    this.selectItems.forEach((x: any) => {
-      this.total += this.itemList[x].price;
-      // console.log(x.id);
-    })
-    return this.total;
   }
 
   getItemsFromDatabase(): Observable<any> {

@@ -1,25 +1,49 @@
-<br>
 <div>
-  <form [formGroup]="listFormGroup">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col"> No. </th>
+      <th scope="col"> Name </th>
+      <th scope="col"> Price </th>
+      <th scope="col" style="width: 300px"> Count </th>
+      <th scope="col"> Select </th>
+    </tr>
+    </thead>
 
-    <div class="form-row">
-      <div class="col-md-6 mb-3">
-        <label>
-          Please Select Food:
-        </label>
+    <tbody>
+    <tr *ngFor="let item of itemList" >
+      <th scope="row">{{item.foodid}}</th>
+      <td [tooltip]="'This is ' + item.foodname + '.'" placement="bottom" delay="500">{{item.foodname}}</td>
+      <td [tooltip]="'The price is $ ' + item.foodprice + '.00'" placement="bottom" delay="500">$ {{item.foodprice}}.00</td>
+      <td>
+        <button (click)="updateCount(item, 1, false)" [ngClass]="{cursors: true}" [disabled]="!item.select">+</button>
+        <input type="number" min="1" [(ngModel)]="item.count" (change)="countValidator(item, item.count)" [disabled]="!item.select" style="width: 100px">
+        <button (click)="updateCount(item, -1, false)" [ngClass]="{cursors: true}" [disabled]="!item.select">-</button>
+      </td>
+      <td><input type="checkbox" (change)="selectFood($event, item)" style="text-align: center"></td>
+    </tr>
+    </tbody>
+  </table>
 
-        <div class="custom-control custom-checkbox scrollbar scrollbar-rare-wind border" style="height: 500px;">
-          <mat-selection-list #list formControlName="selectItems">
-            <mat-list-option *ngFor="let item of itemList" [selected]="item.selected" (click)="listControlChanged(list)" [value]="item.id" [matTooltip]="'Pirce: $' + item.price + '.00'">
-              {{item.name}}
-            </mat-list-option>
-          </mat-selection-list>
-        </div>
-      </div>
+  <div class="row">
+    <span class="col-sm-2">Enter table id:</span>
+    <div class="col-sm-10">
+      <input type="number" [(ngModel)]="tableid" required>
     </div>
 
-    <div class="form-row" *ngIf="btnDisplay">
-      <button type="button" class="btn badge-primary" (click)="btnOrderNow()">Order Now</button>
+
+    <div *ngIf="tableid > 10 ||tableid < 1" class="invalid col">
+      <span>Please enter table id from 1 to 10.</span>
     </div>
-  </form>
+  </div>
+
+  <br>
+
+  <div *ngIf="btnDisplayed">
+    <button type="button" class="btn btn-primary" (click)="btnOrderNow()" [disabled]="tableid > 10 || tableid < 1">Order Now</button>
+  </div>
+
+<!--  <div *ngIf="btnDisplayed">-->
+<!--    <button type="button" class="btn btn-primary" (click)="test()" [disabled]="tableid > 10 || tableid < 1">Test</button>-->
+<!--  </div>-->
 </div>
